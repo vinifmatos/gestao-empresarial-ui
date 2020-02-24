@@ -15,7 +15,7 @@
 <h5><strong>Endereço</strong></h5>
 
 <p>
-  <strong>Logradouro: </strong> {{cliente.endereco_cliente.logradouro}}, {{cliente.endereco_cliente.numero}} <br>
+  <strong>Logradouro: </strong> {{cliente.endereco_cliente.logradouro}} {{cliente.endereco_cliente.numero}} <br>
   <strong>Complemento: </strong> {{cliente.endereco_cliente.complemento}} <br>
   <strong>Bairro: </strong> {{cliente.endereco_cliente.bairro}} <br>
   <strong>Cidade: </strong> {{cliente.endereco_cliente.cidade}} <br>
@@ -24,6 +24,33 @@
 
 <div class="acoes">
   <a routerLink="/clientes" class="btn btn-secondary mr-2">Voltar</a>
-  <button [routerLink]="['/cliente/edit', cliente.id]" class="btn btn-primary mr-2">Editar</button>
-  <a (click)="deleteCliente(cliente)" href="/clientes" class="btn btn-danger">Apagar</a>
+  <button [routerLink]="['/cliente/edit', cliente.id]" class="btn btn-primary mr-2">Editar Cleinte</button>
+  <button (click)="deleteCliente(cliente)" class="btn btn-danger">Excluir Cliente</button>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+            #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 </div>

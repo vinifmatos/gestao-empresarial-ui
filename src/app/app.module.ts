@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ClientesComponent } from './cliente/clientes/clientes.component';
 import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
 import { ClienteService } from "./cliente/shared/cliente.service";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ClienteService } from "./cliente/shared/cliente.service";
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

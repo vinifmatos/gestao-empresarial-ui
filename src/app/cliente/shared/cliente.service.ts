@@ -35,8 +35,6 @@ export class ClienteService {
   }
 
   createCliente(cliente): Observable<Cliente> {
-    console.log(cliente);
-    console.log(JSON.stringify(cliente));
     return this.http.post<Cliente>(this.url, JSON.stringify(cliente), this.httpOptions)
       .pipe(
         map(res => Object.assign(new Cliente, res as Cliente)),
@@ -46,8 +44,6 @@ export class ClienteService {
   }
 
   updateCliente(cliente): Observable<Cliente> {
-    console.log(cliente);
-    console.log(JSON.stringify(cliente));
     return this.http.put<Cliente>(this.url + '/' + cliente.id,
       JSON.stringify(cliente),
       this.httpOptions)
@@ -71,11 +67,11 @@ export class ClienteService {
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
+      console.log(errorMessage);
+      return throwError(error.error);
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      return throwError(error);
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
   }
 }

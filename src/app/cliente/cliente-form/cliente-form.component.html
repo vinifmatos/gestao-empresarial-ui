@@ -1,66 +1,94 @@
-<h1>{{titulo}}</h1>
-<hr>
-
-<form class="needs validation" (ngSubmit)="onSubmit()" novalidate>
-  <div class="form-group">
-    <label for="nome_cliente">Nome</label>
-    <input type="text" id="nome_cliente" class="form-control" name="nome" [(ngModel)]="cliente.nome">
+<div class="card my-3">
+  <div class="card-header">
+    <strong>{{titulo}}</strong>
   </div>
 
-  <div class="form-group">
-    <label for="telefone_cliente">Telefone</label>
-    <input type="text" id="telefone_cliente" class="form-control" name="telefone" [(ngModel)]="cliente.telefone">
+  <div class="card-body">
+    <form class="needs validation" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="form-group col-lg-6">
+          <label for="cliente_nome">Nome</label>
+          <input type="text" id="cliente_nome" class="form-control" name="cliente_nome" [(ngModel)]="cliente.nome">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="cliente_telefone">Telefone</label>
+          <input type="text" id="cliente_telefone" class="form-control" name="cliente_telefone"
+            [(ngModel)]="cliente.telefone">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group col-md-9 col-lg-4">
+          <label for="cliente_email">Email</label>
+          <input type="email" id="cliente_email" class="form-control" name="cliente_email" [(ngModel)]="cliente.email">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <strong>Endereço</strong>
+        </div>
+
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group col-md-9 col-lg-6">
+              <label for="nome_cliente">Logradouro</label>
+              <input type="text" id="cliente_endereco_cliente_logradouro" class="form-control"
+                name="cliente_endereco_cliente_logradouro" [(ngModel)]="cliente.endereco_cliente.logradouro">
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group col-md-3 col-lg-2">
+              <label for="nome_cliente">Numero</label>
+              <input type="text" id="cliente_endereco_cliente_numero" class="form-control"
+                name="cliente_endereco_cliente_numero" [(ngModel)]="cliente.endereco_cliente.numero">
+              <div class="invalid-feedback"></div>
+            </div>
+
+
+            <div class="form-group col-lg-2">
+              <label for="nome_cliente">CEP</label>
+              <input type="text" id="cliente_endereco_cliente_cep" class="form-control"
+                name="cliente_endereco_cliente_cep" [(ngModel)]="cliente.endereco_cliente.cep">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md col-lg">
+              <label for="nome_cliente">Complemento</label>
+              <input type="text" id="cliente_endereco_cliente_complemento" class="form-control"
+                name="cliente_endereco_cliente_complemento" [(ngModel)]="cliente.endereco_cliente.complemento">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-lg-6">
+              <label for="nome_cliente">Bairro</label>
+              <input type="text" id="cliente_endereco_cliente_bairro" class="form-control"
+                name="cliente_endereco_cliente_bairro" [(ngModel)]="cliente.endereco_cliente.bairro">
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group col-lg-6">
+              <label for="nome_cliente">Cidade</label>
+              <input type="text" id="cliente_endereco_cliente_cidade" class="form-control"
+                name="cliente_endereco_cliente_cidade" [(ngModel)]="cliente.endereco_cliente.cidade">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acoes mt-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+        <a [routerLink]="[backRoute]" class="btn btn-secondary">Voltar</a>
+      </div>
+    </form>
   </div>
-
-  <div class="form-group">
-    <label for="email_cliente">Email</label>
-    <input type="email" id="email_cliente" class="form-control" name="email" [(ngModel)]="cliente.email">
-  </div>
-
-  <div class="endereco-fields">
-    <div class="mb-2">
-      <h5><strong>Endereço</strong></h5>
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">Logradouro</label>
-      <input type="text" id="logradouro_endereco" class="form-control" name="logradouro_endereco"
-        [(ngModel)]="cliente.endereco_cliente.logradouro">
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">Numero</label>
-      <input type="text" id="numero_endereco" class="form-control" name="numero_endereco"
-        [(ngModel)]="cliente.endereco_cliente.numero">
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">Complemento</label>
-      <input type="text" id="complemento_endereco" class="form-control" name="complemento_endereco"
-        [(ngModel)]="cliente.endereco_cliente.complemento">
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">Bairro</label>
-      <input type="text" id="bairro_endereco" class="form-control" name="bairro_endereco"
-        [(ngModel)]="cliente.endereco_cliente.bairro">
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">Cidade</label>
-      <input type="text" id="cidade_endereco" class="form-control" name="cidade_endereco"
-        [(ngModel)]="cliente.endereco_cliente.cidade">
-    </div>
-
-    <div class="form-group">
-      <label for="nome_cliente">CEP</label>
-      <input type="text" id="cep_endereco" class="form-control" name="cep_endereco"
-        [(ngModel)]="cliente.endereco_cliente.cep">
-    </div>
-  </div>
-
-  <div class="acoes">
-    <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-    <a [routerLink]="[backRoute]" class="btn btn-secondary">Voltar</a>
-  </div>
-</form>
+</div>
