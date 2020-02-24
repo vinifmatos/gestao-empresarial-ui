@@ -1,0 +1,25 @@
+<h1>Clientes</h1>
+<hr>
+<div class="my-3">
+  <a routerLink="/clientes/new" class="btn btn-success">Novo</a>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th data-field="name">ID</th>
+      <th data-field="name">Nome</th>
+      <th data-field="name">Telefone</th>
+      <th data-field="name">Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let c of clientes" (click)="rowClick(c.id)">
+      <td>{{ c.id }}</td>
+      <td>{{ c.nome }}</td>
+      <td>{{ c.telefone }}</td>
+      <td>{{ c.email }}</td>
+    </tr>
+  </tbody>
+</table>

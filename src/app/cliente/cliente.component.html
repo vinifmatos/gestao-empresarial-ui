@@ -1,0 +1,29 @@
+<h1>Dados do Cliente</h1>
+
+<hr>
+
+<h4><strong>{{cliente.nome}}</strong></h4>
+
+<p>
+  <strong>Telefone:</strong> {{cliente.telefone}}
+</p>
+
+<p>
+  <strong>Email:</strong> {{cliente.email}}
+</p>
+
+<h5><strong>Endereço</strong></h5>
+
+<p>
+  <strong>Logradouro: </strong> {{cliente.endereco_cliente.logradouro}}, {{cliente.endereco_cliente.numero}} <br>
+  <strong>Complemento: </strong> {{cliente.endereco_cliente.complemento}} <br>
+  <strong>Bairro: </strong> {{cliente.endereco_cliente.bairro}} <br>
+  <strong>Cidade: </strong> {{cliente.endereco_cliente.cidade}} <br>
+  <strong>CEP: </strong> {{cliente.endereco_cliente.cep}} <br>
+</p>
+
+<div class="acoes">
+  <a routerLink="/clientes" class="btn btn-secondary mr-2">Voltar</a>
+  <button [routerLink]="['/cliente/edit', cliente.id]" class="btn btn-primary mr-2">Editar</button>
+  <a (click)="deleteCliente(cliente)" href="/clientes" class="btn btn-danger">Apagar</a>
+</div>
