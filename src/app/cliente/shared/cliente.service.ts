@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Cliente } from "./cliente";
 import { Observable, throwError } from "rxjs";
 import { retry, catchError, map } from "rxjs/operators";
+import { HostListener } from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ClienteService {
   private url: string = "http://localhost:3000/clientes"
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     })
   }
 
   constructor(private http: HttpClient) { }
-
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.url, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandler)
-      )
+  getClientes(page: number, per_page: number): Observable<HttpResponse<Cliente[]>> {
+    return this.http.get<Cliente[]>(`${this.url}/?page=${page}&per_page=${per_page}`, { observe: 'response' }).pipe(
+      retry(1),
+      catchError(this.errorHandler)
+    )
   }
 
   getCliente(id): Observable<Cliente> {

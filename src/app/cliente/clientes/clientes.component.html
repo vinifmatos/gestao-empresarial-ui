@@ -23,3 +23,19 @@
     </tr>
   </tbody>
 </table>
+
+<div class="row no-gutters">
+  <div>
+    Exibindo página {{page}} de {{total_records / record_per_page | roundup}}
+  </div>
+
+  <ngb-pagination class="mx-auto hidden-xs" [collectionSize]="total_records" (pageChange)="onPageChange($event)"
+    [(page)]="page" [maxSize]="max_pages" [rotate]="true" [pageSize]="record_per_page" [ellipses]="false" size="sm"
+    [boundaryLinks]="true">
+  </ngb-pagination>
+  <select class="custom-select" style="width: auto" [(ngModel)]="record_per_page">
+    <option [ngValue]="25" selected="true">25 itens por página</option>
+    <option [ngValue]="50">50 itens por página</option>
+    <option [ngValue]="100">100 itens por página</option>
+  </select>
+</div>

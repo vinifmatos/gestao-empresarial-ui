@@ -25,32 +25,21 @@
 <div class="acoes">
   <a routerLink="/clientes" class="btn btn-secondary mr-2">Voltar</a>
   <button [routerLink]="['/cliente/edit', cliente.id]" class="btn btn-primary mr-2">Editar Cleinte</button>
-  <button (click)="deleteCliente(cliente)" class="btn btn-danger">Excluir Cliente</button>
+  <button (click)="open(content)" class="btn btn-danger">Excluir Cliente</button>
 </div>
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-title">Confirmar exclusão</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-            #dp="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-          </div>
-        </div>
-      </div>
-    </form>
+    Deseja exclui o cliente {{cliente.nome}}?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('sim')">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('nao')">Não</button>
   </div>
 </ng-template>
-
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-</div>

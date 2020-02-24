@@ -8,18 +8,37 @@ import { Cliente } from '../shared/cliente';
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
 })
+
 export class ClientesComponent implements OnInit {
   clientes: Cliente[] = []
+  page: number = 1
+  total_pages: number = 0
+  total_records: number = 0
+  record_per_page: number = 25
+  max_pages: number = 7
 
   constructor(
     private clienteService: ClienteService,
-    private router: Router) { }
+    private router: Router, ) {
+  }
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe((data) => this.clientes = data)
+    this.setClients(this.page)
   }
 
   rowClick(id) {
     this.router.navigate(['/cliente/' + id])
+  }
+
+  onPageChange(page) {
+    this.setClients(page)
+  }
+
+  setClients(page) {
+    this.clienteService.getClientes(page, this.record_per_page).subscribe((resp) => {
+      this.clientes = resp.body
+      this.total_records = parseInt(resp.headers.get('Total'))
+      this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
+    })
   }
 }

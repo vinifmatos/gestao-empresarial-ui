@@ -27,17 +27,15 @@ export class ClienteComponent implements OnInit {
   }
 
   deleteCliente(cliente) {
-    if (confirm("Excluir o cliente " + cliente.nome + "?")) {
-      this.clienteService.deleteCliente(cliente.id).subscribe((null));
-      this.router.navigate(['/clientes'])
-    }
+    this.clienteService.deleteCliente(cliente.id).subscribe((null));
+    this.router.navigate(['/clientes'])
   }
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      if (result == 'sim') {
+        this.deleteCliente(this.cliente)
+      }
     });
   }
 

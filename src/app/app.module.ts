@@ -12,6 +12,7 @@ import { ClientesComponent } from './cliente/clientes/clientes.component';
 import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
 import { ClienteService } from "./cliente/shared/cliente.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { RoundupPipe } from './roundup.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     ClienteComponent,
     NavbarComponent,
     ClientesComponent,
-    ClienteFormComponent
+    ClienteFormComponent,
+    RoundupPipe,
   ],
   imports: [
     BrowserModule,
