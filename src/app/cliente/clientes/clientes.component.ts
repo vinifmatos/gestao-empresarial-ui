@@ -11,7 +11,7 @@ import { Cliente } from '../shared/cliente';
 
 export class ClientesComponent implements OnInit {
   clientes: Cliente[] = []
-  page: number = 1
+  current_page: number = 1
   total_pages: number = 0
   total_records: number = 0
   record_per_page: number = 25
@@ -23,7 +23,7 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setClients(this.page)
+    this.setClients(this.current_page)
   }
 
   rowClick(id) {
@@ -31,6 +31,7 @@ export class ClientesComponent implements OnInit {
   }
 
   onPageChange(page) {
+    this.current_page = page
     this.setClients(page)
   }
 
@@ -40,5 +41,10 @@ export class ClientesComponent implements OnInit {
       this.total_records = parseInt(resp.headers.get('Total'))
       this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
     })
+  }
+
+  onPerPageChange(per_page) {
+    this.record_per_page = per_page
+    this.onPageChange(1)
   }
 }
