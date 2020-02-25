@@ -1,0 +1,40 @@
+<h1>Produtos</h1>
+<hr>
+<div class="my-3">
+  <a routerLink="/produtos/new" class="btn btn-success">Novo Produto</a>
+</div>
+
+<table class="table table-hover table-responsive-md">
+  <thead>
+    <tr>
+      <th data-field="name">ID</th>
+      <th data-field="name">Descrição</th>
+      <th data-field="name">Preço</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let produto of produtos" (click)="rowClick(produto.id)">
+      <td>{{ produto.id }}</td>
+      <td>{{ produto.descricao }}</td>
+      <td>{{ produto.preco }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row no-gutters">
+  <div>
+    Exibindo página {{current_page}} de {{total_records / record_per_page | roundup}}
+  </div>
+
+  <ngb-pagination class="mx-auto hidden-xs" [collectionSize]="total_records" (pageChange)="onPageChange($event)"
+    [(page)]="current_page" [maxSize]="max_pages" [rotate]="true" [pageSize]="record_per_page" [ellipses]="false"
+    size="sm" [boundaryLinks]="true">
+  </ngb-pagination>
+  <select class="custom-select" (change)="onPerPageChange($event.target.value)" style="width: auto"
+    [(ngModel)]="record_per_page">
+    <option [value]="25" selected="true">25 itens por página</option>
+    <option [value]="50">50 itens por página</option>
+    <option [value]="100">100 itens por página</option>
+  </select>
+</div>

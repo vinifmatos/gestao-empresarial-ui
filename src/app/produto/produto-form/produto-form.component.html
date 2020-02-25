@@ -1,0 +1,32 @@
+<div class="card my-3">
+  <div class="card-header">
+    <strong>{{titulo}}</strong>
+  </div>
+
+  <div class="card-body">
+    <form class="needs validation" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="form-group col-lg-6">
+          <label for="produto_descricao">Descrição</label>
+          <input type="text" id="produto_descricao" class="form-control" name="produto_descricao"
+            [(ngModel)]="produto.descricao">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="produto_preco">Preço</label>
+          <input type="text" id="produto_preco" class="form-control" name="produto_preco" [(ngModel)]="produto.preco">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+
+      <div class="acoes mt-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+        <a [routerLink]="[backRoute]" class="btn btn-secondary">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
