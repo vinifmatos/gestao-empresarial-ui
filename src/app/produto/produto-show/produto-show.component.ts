@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ProdutoService } from "../produto.service";
 import { Produto } from "../produto";
+import { NotificacaoService } from "../../notificacao/notificacao.service";
 
 @Component({
   selector: 'app-produto-show',
@@ -18,6 +19,7 @@ export class ProdutoShowComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
+    public notificacaoService: NotificacaoService,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,8 @@ export class ProdutoShowComponent implements OnInit {
         if (erro.name == 'HttpErrorResponse') {
           if (erro.status == 422) {
             console.log(erro.error['produto'])
+            this.notificacaoService.show(erro.error['produto'], 'Erro', { classname: 'bg-danger text-light', delay: 10000 })
+            console.log(this.notificacaoService.notificacoes)
             return
           }
         }

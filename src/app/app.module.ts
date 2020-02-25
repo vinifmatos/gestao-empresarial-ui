@@ -13,6 +13,10 @@ import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.compon
 import { ClienteService } from "./cliente/shared/cliente.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { RoundupPipe } from './roundup.pipe';
+import { ProdutoIndexComponent } from './produto/produto-index/produto-index.component';
+import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
+import { ProdutoShowComponent } from './produto/produto-show/produto-show.component';
+import { NotificacaoContainerComponent } from './notificacao/notificacao-container/notificacao-container.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { RoundupPipe } from './roundup.pipe';
     ClientesComponent,
     ClienteFormComponent,
     RoundupPipe,
+    ProdutoIndexComponent,
+    ProdutoFormComponent,
+    ProdutoShowComponent,
+    NotificacaoContainerComponent,
   ],
   imports: [
     BrowserModule,
