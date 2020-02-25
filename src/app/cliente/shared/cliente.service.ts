@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Cliente } from "./cliente";
 import { Observable, throwError } from "rxjs";
 import { retry, catchError, map } from "rxjs/operators";
-import { HostListener } from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
