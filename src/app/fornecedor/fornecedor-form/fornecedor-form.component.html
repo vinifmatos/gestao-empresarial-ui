@@ -1,0 +1,42 @@
+<div class="card my-3">
+  <div class="card-header">
+    <strong>{{titulo}}</strong>
+  </div>
+
+  <div class="card-body">
+    <form class="needs validation" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="form-group col-lg-6">
+          <label for="fornecedor_nome">Nome</label>
+          <input type="text" id="fornecedor_nome" class="form-control" name="fornecedor_nome"
+            [(ngModel)]="recurso.nome">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="fornecedor_telefone">Telefone</label>
+          <input type="text" id="fornecedor_telefone" class="form-control" name="fornecedor_telefone"
+            [(ngModel)]="recurso.telefone">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="fornecedor_email">Email</label>
+          <input type="text" id="fornecedor_email" class="form-control" name="fornecedor_email"
+            [(ngModel)]="recurso.email">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+
+      <div class="acoes mt-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+        <a [routerLink]="['../']" class="btn btn-secondary">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -17,6 +17,10 @@ import { ProdutoIndexComponent } from './produto/produto-index/produto-index.com
 import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
 import { ProdutoShowComponent } from './produto/produto-show/produto-show.component';
 import { NotificacaoContainerComponent } from './notificacao/notificacao-container/notificacao-container.component';
+import { FornecedorIndexComponent } from './fornecedor/fornecedor-index/fornecedor-index.component';
+import { FornecedorFormComponent } from './fornecedor/fornecedor-form/fornecedor-form.component';
+import { FornecedorShowComponent } from './fornecedor/fornecedor-show/fornecedor-show.component';
+import { Form } from "./shared/form";
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import { NotificacaoContainerComponent } from './notificacao/notificacao-contain
     ProdutoFormComponent,
     ProdutoShowComponent,
     NotificacaoContainerComponent,
+    FornecedorIndexComponent,
+    FornecedorFormComponent,
+    FornecedorShowComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,7 @@ import { NotificacaoContainerComponent } from './notificacao/notificacao-contain
     AppRoutingModule,
     NgbModule
   ],
-  providers: [ClienteService],
+  providers: [ClienteService, Form],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

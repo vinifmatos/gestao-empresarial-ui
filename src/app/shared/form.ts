@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,10 @@ import { Router } from "@angular/router";
 export class Form {
   titulo: string
   recurso: any
-  backRoute: string
-  protected recursoService: any
 
   constructor(
     protected router: Router,
+    protected apiService: ApiService,
   ) { }
 
 
@@ -19,12 +19,12 @@ export class Form {
     var result
 
     if (this.recurso.id) {
-      result = this.recursoService.update(this.recurso)
+      result = this.apiService.update(this.recurso.className(2), this.recurso)
     } else {
-      result = this.recursoService.create(this.recurso)
+      result = this.apiService.create(this.recurso.className(2), this.recurso)
     }
     result.subscribe(
-      recurso => this.router.navigate([`/${this.recurso.className()}/${recurso.id}`]),
+      recurso => this.router.navigate([`${this.recurso.className()}/${recurso.id}`]),
       erro => (this.errorHandle(erro)))
   }
 

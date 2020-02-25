@@ -1,0 +1,42 @@
+<h1>Fornecedores</h1>
+<hr>
+<div class="my-3">
+  <a routerLink="/fornecedores/new" class="btn btn-success">Novo Fornecedor</a>
+</div>
+
+<table class="table table-hover table-responsive-md">
+  <thead>
+    <tr>
+      <th data-field="name">ID</th>
+      <th data-field="name">Nome</th>
+      <th data-field="name">Telefone</th>
+      <th data-field="name">Email</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let fornecedor of fornecedores" (click)="rowClick(fornecedor.id)">
+      <td>{{ fornecedor.id }}</td>
+      <td>{{ fornecedor.nome }}</td>
+      <td>{{ fornecedor.telefone }}</td>
+      <td>{{ fornecedor.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row no-gutters">
+  <div>
+    Exibindo página {{current_page}} de {{total_records / record_per_page | roundup}}
+  </div>
+
+  <ngb-pagination class="mx-auto hidden-xs" [collectionSize]="total_records" (pageChange)="onPageChange($event)"
+    [(page)]="current_page" [maxSize]="max_pages" [rotate]="true" [pageSize]="record_per_page" [ellipses]="false"
+    size="sm" [boundaryLinks]="true">
+  </ngb-pagination>
+  <select class="custom-select" (change)="onPerPageChange($event.target.value)" style="width: auto"
+    [(ngModel)]="record_per_page">
+    <option [value]="25" selected="true">25 itens por página</option>
+    <option [value]="50">50 itens por página</option>
+    <option [value]="100">100 itens por página</option>
+  </select>
+</div>

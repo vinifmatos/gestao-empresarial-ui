@@ -1,0 +1,38 @@
+<h1>Dados do Fornecedor</h1>
+
+<hr>
+
+<h4><strong>{{fornecedor.nome}}</strong></h4>
+
+<p>
+  <strong>Telefone:</strong> {{fornecedor.telefone}}
+</p>
+
+<p>
+  <strong>Email:</strong> {{fornecedor.email}}
+</p>
+
+<div class="acoes">
+  <a routerLink="/fornecedores" class="btn btn-secondary mr-2">Voltar</a>
+  <button [routerLink]="['edit']" class="btn btn-primary mr-2">Editar
+    Fornecedor</button>
+  <button (click)="open(content)" class="btn btn-danger">Excluir Fornecedor</button>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmar exclusão</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Deseja excluir o fornecedor <strong>{{fornecedor.nome}}</strong>?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('sim')">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('nao')">Não</button>
+  </div>
+</ng-template>
+
+<app-notificacao-container aria-live="polite" aria-atomic="true"></app-notificacao-container>
