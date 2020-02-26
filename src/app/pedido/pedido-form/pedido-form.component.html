@@ -1,0 +1,107 @@
+<div class="card my-3">
+  <div class="card-header">
+    <strong>{{titulo}}</strong>
+  </div>
+
+  <div class="card-body">
+    <form class="needs validation" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="pedido_data">Data</label>
+          <input type="text" id="pedido_data" class="form-control" name="pedido_data" [(ngModel)]="recurso.data">
+          <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group col-md col-lg-6">
+          <label for="pedido_cliente">Cliente</label>
+          <input type="text" id="pedido_cliente" class="form-control" name="pedido_cliente"
+            [(ngModel)]="recurso.cliente.nome">
+          <input type="hidden" id="pedido_cliente_id" name="pedido_cliente_id" [(ngModel)]="recurso.cliente.id">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-3 col-lg-2">
+          <label for="pedido_prazo_entrega">Prazo de entrega</label>
+          <input type="number" min="0" id="pedido_prazo_entrega" class="form-control" name="pedido_prazo_entrega"
+            [(ngModel)]="recurso.prazo_entrega">
+          <div class="invalid-feedback"></div>
+        </div>
+      </div>
+
+      <table class="table table-hover table-responsive-md">
+        <thead>
+          <tr>
+            <th data-field="name">ID</th>
+            <th data-field="name">Produto</th>
+            <th style="white-space: nowrap; width: min-content;" data-field="name">Quantidade</th>
+            <th data-field="name">Valor unitário</th>
+            <th data-field="name">Valor total</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of recurso.pedido_itens">
+            <td>{{ item.id }}</td>
+            <td>{{item.produto.descricao}}</td>
+            <td class="qtd-field"><input type="number" min="1"
+                id="pedido_pedido_itens_{{recurso.pedido_itens.indexOf(item)}}_quantidade" class="form-control teste"
+                name="pedido_pedido_itens_{{recurso.pedido_itens.indexOf(item)}}_quantidade"
+                [(ngModel)]="recurso.pedido_itens[recurso.pedido_itens.indexOf(item)].quantidade"
+                (change)="onQtdChange(recurso.pedido_itens.indexOf(item))"></td>
+            <td>{{ item.valor_unitario }}</td>
+            <td>{{ item.valor_total }}</td>
+            <td><button class="btn btn-sm btn-danger" (click)="deletePedidoItem(recurso.pedido_itens.indexOf(item))">
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="acoes mt-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+        <a [routerLink]="['../']" class="btn btn-secondary">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="mb-3">
+  <button (click)="open(content)" class="btn btn-success">Adicionar Produto</button>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Selecionar Produto</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-hover table-responsive-md">
+      <thead>
+        <tr>
+          <th data-field="name">ID</th>
+          <th data-field="name">Produto</th>
+          <th data-field="name">Preço</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr (click)="onProdutoRowClick($event.target.parentElement, produtos.indexOf(produto))"
+          *ngFor="let produto of produtos">
+          <td>{{ produto.id }}</td>
+          <td>{{ produto.descricao }}</td>
+          <td>{{ produto.preco }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('sim')">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('nao')">Não</button>
+  </div>
+</ng-template>

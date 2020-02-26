@@ -1,0 +1,68 @@
+<h1>Dados do Pedido</h1>
+
+<hr>
+
+<h4><strong>Pedido Nº {{pedido.id}}</strong></h4>
+
+<p>
+  <strong>Data:</strong> {{pedido.data}}
+</p>
+
+<p>
+  <strong>Situação:</strong> {{pedido.situacao}}
+</p>
+
+<p>
+  <strong>Clente:</strong> {{pedido.cliente.nome}}
+</p>
+
+<p>
+  <strong>Prazo de entrega:</strong> {{pedido.prazo_entrega}}
+</p>
+
+<table class="table table-hover table-responsive-md">
+  <thead>
+    <tr>
+      <th data-field="name">ID</th>
+      <th data-field="name">Produto</th>
+      <th data-field="name">Quantidade</th>
+      <th data-field="name">Valor unitário</th>
+      <th data-field="name">Valor total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of pedido.pedido_itens">
+      <td>{{ item.id }}</td>
+      <td>{{ item.produto.descricao }}</td>
+      <td>{{ item.quantidade }}</td>
+      <td>{{ item.valor_unitario }}</td>
+      <td>{{ item.valor_total }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="acoes mb-3">
+  <a routerLink="/pedidos" class="btn btn-secondary mr-2">Voltar</a>
+  <button [routerLink]="['edit']" class="btn btn-primary mr-2">Editar
+    Pedido</button>
+  <button (click)="open(content)" class="btn btn-danger">Excluir Pedido</button>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmar exclusão</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Deseja excluir o pedido <strong>{{pedido.id}}</strong>?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('sim')">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('nao')">Não</button>
+  </div>
+</ng-template>
+
+<app-notificacao-container aria-live="polite" aria-atomic="true"></app-notificacao-container>

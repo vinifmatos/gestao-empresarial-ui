@@ -10,7 +10,9 @@ import { ProdutoFormComponent } from "./produto/produto-form/produto-form.compon
 import { FornecedorIndexComponent } from "./fornecedor/fornecedor-index/fornecedor-index.component";
 import { FornecedorShowComponent } from "./fornecedor/fornecedor-show/fornecedor-show.component";
 import { FornecedorFormComponent } from "./fornecedor/fornecedor-form/fornecedor-form.component";
-
+import { PedidoIndexComponent } from "./pedido/pedido-index/pedido-index.component";
+import { PedidoFormComponent } from "./pedido/pedido-form/pedido-form.component";
+import { PedidoShowComponent } from "./pedido/pedido-show/pedido-show.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -29,6 +31,11 @@ const routes: Routes = [
   { path: 'fornecedor/:id', pathMatch: 'full', component: FornecedorShowComponent },
   { path: 'fornecedores/new', pathMatch: 'full', component: FornecedorFormComponent },
   { path: 'fornecedor/:id/edit', pathMatch: 'full', component: FornecedorFormComponent },
+
+  { path: 'pedidos', pathMatch: 'full', component: PedidoIndexComponent },
+  { path: 'pedido/:id', pathMatch: 'full', component: PedidoShowComponent },
+  { path: 'pedidos/new', pathMatch: 'full', component: PedidoFormComponent },
+  { path: 'pedido/:id/edit', pathMatch: 'full', component: PedidoFormComponent },
 ];
 
 @NgModule({

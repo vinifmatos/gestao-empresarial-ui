@@ -21,6 +21,10 @@ import { FornecedorIndexComponent } from './fornecedor/fornecedor-index/forneced
 import { FornecedorFormComponent } from './fornecedor/fornecedor-form/fornecedor-form.component';
 import { FornecedorShowComponent } from './fornecedor/fornecedor-show/fornecedor-show.component';
 import { Form } from "./shared/form";
+import { PedidoIndexComponent } from './pedido/pedido-index/pedido-index.component';
+import { PedidoShowComponent } from './pedido/pedido-show/pedido-show.component';
+import { PedidoFormComponent } from './pedido/pedido-form/pedido-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -38,13 +42,17 @@ import { Form } from "./shared/form";
     FornecedorIndexComponent,
     FornecedorFormComponent,
     FornecedorShowComponent,
+    PedidoIndexComponent,
+    PedidoShowComponent,
+    PedidoFormComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [ClienteService, Form],
   bootstrap: [AppComponent]

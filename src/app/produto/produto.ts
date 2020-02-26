@@ -17,4 +17,18 @@ export class Produto {
       }
     }
   }
+
+  humanName(count: number = 1) {
+    if (count > 1)
+      return 'Produtos'
+    else
+      return 'Produto'
+  }
+
+  className(count: number = 1) {
+    if (count > 1)
+      return this.humanName(count).toLowerCase()
+    else
+      return this.humanName(count).toLowerCase()
+  }
 }
