@@ -5,19 +5,25 @@ import { ApiService } from 'src/app/shared/api.service';
 import { Pedido } from '../pedido';
 import { PedidoItem } from '../pedido-item';
 import { Produto } from 'src/app/produto/produto';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal, ModalDismissReasons, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { CustomDateParserFormatter } from 'src/app/shared/custom-date-parser-formatter.service';
+import { CustomDateAdapterService } from 'src/app/shared/custom-date-adapter.service';
 
 @Component({
   selector: 'app-pedido-form',
   templateUrl: './pedido-form.component.html',
-  styleUrls: ['./pedido-form.component.scss']
+  styleUrls: ['./pedido-form.component.scss'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  { provide: NgbDateAdapter, useClass: CustomDateAdapterService }]
 })
 export class PedidoFormComponent extends Form implements OnInit {
   novo_produto: Produto = new Produto
   produtos: Produto[]
   produtos_removidos: Produto[] = []
   faTrash = faTrash;
+  faCalendarAlt = faCalendarAlt;
+  startDate = {}
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +55,10 @@ export class PedidoFormComponent extends Form implements OnInit {
             recurso.data,
             recurso.pedido_itens
           )
+
+          var d = this.recurso.data.split('/')
+          this.startDate = { year: parseInt(d[2]), month: parseInt(d[1]), day: parseInt(d[0]) }
+
         })
     })
   }
@@ -58,7 +68,6 @@ export class PedidoFormComponent extends Form implements OnInit {
       var item = this.recurso.pedido_itens[index]
       item._destroy = true
       this.produtos_removidos.push(item)
-      console.log(this.produtos_removidos);
     }
     this.recurso.pedido_itens.splice(index, 1)
   }

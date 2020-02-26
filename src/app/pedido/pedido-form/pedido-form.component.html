@@ -8,7 +8,15 @@
       <div class="form-row">
         <div class="form-group col-md-3 col-lg-2">
           <label for="pedido_data">Data</label>
-          <input type="text" id="pedido_data" class="form-control" name="pedido_data" [(ngModel)]="recurso.data">
+          <div class="input-group">
+            <input id="pedido_data" class="form-control" placeholder="dd/mm/yyyy" name="pedido_data"
+              [(ngModel)]="recurso.data" [startDate]="startDate" ngbDatepicker #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                <fa-icon [icon]="faCalendarAlt"></fa-icon>
+              </button>
+            </div>
+          </div>
           <div class="invalid-feedback"></div>
         </div>
 

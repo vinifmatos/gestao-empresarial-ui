@@ -25,7 +25,15 @@ export class PedidoShowComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.apiService.get(`${this.pedido.className(2)}/${params['id']}`).subscribe((pedido) => {
-        this.pedido = Object.assign(new Pedido, pedido)
+        this.pedido = new Pedido(
+          pedido.id,
+          pedido.cliente,
+          pedido.situacao,
+          pedido.prazo_entrega,
+          pedido.data_entrega,
+          pedido.data,
+          pedido.pedido_itens
+        )
       })
     })
   }

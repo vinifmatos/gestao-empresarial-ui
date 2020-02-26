@@ -6,8 +6,8 @@ export class Pedido {
   cliente: Cliente
   situacao: string
   prazo_entrega: number
-  data_entrega: Date
-  data: Date
+  data_entrega: string
+  data: string
   pedido_itens: PedidoItem[]
 
   constructor(
@@ -15,30 +15,31 @@ export class Pedido {
     cliente: Cliente = null,
     situacao: string = null,
     prazo_entrega: number = 0,
-    data_entrega: Date = null,
-    data: Date = null,
+    data_entrega: string = null,
+    data: string = null,
     pedido_itens: PedidoItem[] = [],
   ) {
     this.id = id
     this.cliente = Object.assign(new Cliente, cliente)
     this.situacao = situacao
     this.prazo_entrega = prazo_entrega
-    this.data_entrega = data_entrega
-    this.data = data
+    this.data_entrega = this.parseData(data_entrega)
+    this.data = this.parseData(data)
     this.pedido_itens = pedido_itens.map(pedido_item => Object.assign(new PedidoItem, pedido_item))
   }
 
   toJSON() {
-    return {
-      pedido: {
-        cliente_id: this.cliente.id,
-        situacao: this.situacao,
-        prazo_entrega: this.prazo_entrega,
-        data_entrega: this.data_entrega,
-        data: this.data,
-        pedido_itens_attributes: this.pedido_itens
-      }
-    }
+    var pedido: { [k: string]: any } = {}
+    pedido.cliente_id = this.cliente.id
+    pedido.situacao = this.situacao
+    pedido.prazo_entrega = this.prazo_entrega
+    pedido.data = this.data
+    pedido.pedido_itens_attributes = this.pedido_itens
+    if (!this.data_entrega)
+      pedido.data_entrega = this.data_entrega
+    console.log(pedido);
+
+    return { pedido: pedido }
   }
 
   humanName(count: number = 1) {
@@ -53,5 +54,12 @@ export class Pedido {
       return this.humanName(count).toLowerCase()
     else
       return this.humanName(count).toLowerCase()
+  }
+
+  private parseData(data) {
+    if (!data)
+      return
+    var d = data.split('-')
+    return `${d[2]}/${d[1]}/${d[0]}`
   }
 }
