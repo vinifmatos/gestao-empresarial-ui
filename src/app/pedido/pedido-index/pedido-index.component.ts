@@ -37,7 +37,15 @@ export class PedidoIndexComponent implements OnInit {
 
   setClients(page) {
     this.apiService.list(page, this.record_per_page, '/pedidos').subscribe((resp) => {
-      this.pedidos = resp.body.map((pedido) => Object.assign(new Pedido, pedido))
+      this.pedidos = resp.body.map((pedido: Pedido) => new Pedido(
+        pedido.id,
+        pedido.cliente,
+        pedido.situacao,
+        pedido.prazo_entrega,
+        pedido.data_entrega,
+        pedido.data,
+        pedido.pedido_itens
+      ))
       this.total_records = parseInt(resp.headers.get('Total'))
       this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
     })
