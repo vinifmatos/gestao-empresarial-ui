@@ -5,11 +5,11 @@ import { Cliente } from '../cliente';
 
 @Component({
   selector: 'app-clientes',
-  templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.scss']
+  templateUrl: './cliente-index.component.html',
+  styleUrls: ['./cliente-index.component.scss']
 })
 
-export class ClientesComponent implements OnInit {
+export class ClienteIndexComponent implements OnInit {
   clientes: Cliente[] = []
   current_page: number = 1
   total_pages: number = 0
@@ -23,7 +23,7 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setClients(this.current_page)
+    this.setClientes(this.current_page)
   }
 
   rowClick(id) {
@@ -32,15 +32,15 @@ export class ClientesComponent implements OnInit {
 
   onPageChange(page) {
     this.current_page = page
-    this.setClients(page)
+    this.setClientes(page)
   }
 
-  setClients(page) {
-    // this.clienteService.getClientes(page, this.record_per_page).subscribe((resp) => {
-    //   this.clientes = resp.body
-    //   this.total_records = parseInt(resp.headers.get('Total'))
-    //   this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
-    // })
+  setClientes(page) {
+    this.clienteService.list(page, this.record_per_page).subscribe((resp: any) => {
+      this.clientes = resp.clientes
+      this.total_records = resp.total_records
+      this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
+    })
   }
 
   onPerPageChange(per_page) {

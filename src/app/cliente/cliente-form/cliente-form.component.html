@@ -8,7 +8,7 @@
       <div class="form-row">
         <div class="form-group col-lg-6">
           <label for="cliente_nome">Nome</label>
-          <input type="text" id="cliente_nome" class="form-control" name="cliente_nome" [(ngModel)]="cliente.nome">
+          <input type="text" id="cliente_nome" class="form-control" name="cliente_nome" [(ngModel)]="recurso.nome">
           <div class="invalid-feedback"></div>
         </div>
       </div>
@@ -17,13 +17,13 @@
         <div class="form-group col-md-3 col-lg-2">
           <label for="cliente_telefone">Telefone</label>
           <input type="text" id="cliente_telefone" class="form-control" name="cliente_telefone"
-            [(ngModel)]="cliente.telefone">
+            [(ngModel)]="recurso.telefone">
           <div class="invalid-feedback"></div>
         </div>
 
         <div class="form-group col-md-9 col-lg-4">
           <label for="cliente_email">Email</label>
-          <input type="email" id="cliente_email" class="form-control" name="cliente_email" [(ngModel)]="cliente.email">
+          <input type="email" id="cliente_email" class="form-control" name="cliente_email" [(ngModel)]="recurso.email">
           <div class="invalid-feedback"></div>
         </div>
       </div>
@@ -38,14 +38,14 @@
             <div class="form-group col-md-9 col-lg-6">
               <label for="nome_cliente">Logradouro</label>
               <input type="text" id="cliente_endereco_cliente_logradouro" class="form-control"
-                name="cliente_endereco_cliente_logradouro" [(ngModel)]="cliente.endereco_cliente.logradouro">
+                name="cliente_endereco_cliente_logradouro" [(ngModel)]="recurso.endereco_cliente.logradouro">
               <div class="invalid-feedback"></div>
             </div>
 
             <div class="form-group col-md-3 col-lg-2">
               <label for="nome_cliente">Numero</label>
               <input type="text" id="cliente_endereco_cliente_numero" class="form-control"
-                name="cliente_endereco_cliente_numero" [(ngModel)]="cliente.endereco_cliente.numero">
+                name="cliente_endereco_cliente_numero" [(ngModel)]="recurso.endereco_cliente.numero">
               <div class="invalid-feedback"></div>
             </div>
 
@@ -53,7 +53,7 @@
             <div class="form-group col-lg-2">
               <label for="nome_cliente">CEP</label>
               <input type="text" id="cliente_endereco_cliente_cep" class="form-control"
-                name="cliente_endereco_cliente_cep" [(ngModel)]="cliente.endereco_cliente.cep">
+                name="cliente_endereco_cliente_cep" [(ngModel)]="recurso.endereco_cliente.cep">
               <div class="invalid-feedback"></div>
             </div>
           </div>
@@ -62,7 +62,7 @@
             <div class="form-group col-md col-lg">
               <label for="nome_cliente">Complemento</label>
               <input type="text" id="cliente_endereco_cliente_complemento" class="form-control"
-                name="cliente_endereco_cliente_complemento" [(ngModel)]="cliente.endereco_cliente.complemento">
+                name="cliente_endereco_cliente_complemento" [(ngModel)]="recurso.endereco_cliente.complemento">
               <div class="invalid-feedback"></div>
             </div>
           </div>
@@ -71,14 +71,14 @@
             <div class="form-group col-lg-6">
               <label for="nome_cliente">Bairro</label>
               <input type="text" id="cliente_endereco_cliente_bairro" class="form-control"
-                name="cliente_endereco_cliente_bairro" [(ngModel)]="cliente.endereco_cliente.bairro">
+                name="cliente_endereco_cliente_bairro" [(ngModel)]="recurso.endereco_cliente.bairro">
               <div class="invalid-feedback"></div>
             </div>
 
             <div class="form-group col-lg-6">
               <label for="nome_cliente">Cidade</label>
               <input type="text" id="cliente_endereco_cliente_cidade" class="form-control"
-                name="cliente_endereco_cliente_cidade" [(ngModel)]="cliente.endereco_cliente.cidade">
+                name="cliente_endereco_cliente_cidade" [(ngModel)]="recurso.endereco_cliente.cidade">
               <div class="invalid-feedback"></div>
             </div>
           </div>
@@ -87,7 +87,7 @@
 
       <div class="acoes mt-3">
         <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-        <a [routerLink]="[backRoute]" class="btn btn-secondary">Voltar</a>
+        <a [routerLink]="['../']" class="btn btn-secondary">Voltar</a>
       </div>
     </form>
   </div>

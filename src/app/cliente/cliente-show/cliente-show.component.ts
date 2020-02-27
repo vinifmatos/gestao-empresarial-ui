@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from "./cliente.service";
-import { Cliente } from './cliente';
+import { ClienteService } from "../cliente.service";
+import { Cliente } from '../cliente';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss']
+  templateUrl: './cliente-show.component.html',
+  styleUrls: ['./cliente-show.component.scss']
 })
-export class ClienteComponent implements OnInit {
+export class ClienteShowComponent implements OnInit {
   cliente: Cliente = new Cliente()
   closeResult: string
 
@@ -22,12 +22,12 @@ export class ClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      // this.clienteService.getCliente(params['id']).subscribe(cliente => this.cliente = cliente)
+      this.clienteService.get(params['id']).subscribe((cliente: Cliente) => this.cliente = cliente)
     })
   }
 
   deleteCliente(cliente) {
-    // this.clienteService.deleteCliente(cliente.id).subscribe((null));
+    this.clienteService.delete(cliente).subscribe((null));
     this.router.navigate(['/clientes'])
   }
 

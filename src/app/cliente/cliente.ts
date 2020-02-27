@@ -38,4 +38,18 @@ export class Cliente {
       }
     }
   }
+
+  humanName(count: number = 1) {
+    if (count > 1)
+      return 'Clientes'
+    else
+      return 'Cliente'
+  }
+
+  className(count: number = 1) {
+    if (count > 1)
+      return this.humanName(count).toLowerCase()
+    else
+      return this.humanName(count).toLowerCase()
+  }
 }

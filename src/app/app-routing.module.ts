@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ClientesComponent } from './cliente/clientes/clientes.component';
-import { ClienteComponent } from './cliente/cliente.component';
+import { ClienteIndexComponent } from './cliente/cliente-index/cliente-index.component';
+import { ClienteShowComponent } from './cliente/cliente-show/cliente-show.component';
 import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
 import { ProdutoIndexComponent } from "./produto/produto-index/produto-index.component";
 import { ProdutoShowComponent } from "./produto/produto-show/produto-show.component";
@@ -17,8 +17,8 @@ import { PedidoShowComponent } from "./pedido/pedido-show/pedido-show.component"
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
 
-  { path: 'clientes', pathMatch: 'full', component: ClientesComponent },
-  { path: 'cliente/:id', pathMatch: 'full', component: ClienteComponent },
+  { path: 'clientes', pathMatch: 'full', component: ClienteIndexComponent },
+  { path: 'cliente/:id', pathMatch: 'full', component: ClienteShowComponent },
   { path: 'clientes/new', pathMatch: 'full', component: ClienteFormComponent },
   { path: 'cliente/:id/edit', pathMatch: 'full', component: ClienteFormComponent },
 
