@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from "../shared/cliente";
+import { Cliente } from "../cliente";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { ClienteService } from "../shared/cliente.service";
+import { ClienteService } from "../cliente.service";
 
 @Component({
   selector: 'app-cliente-form',
@@ -30,25 +30,25 @@ export class ClienteFormComponent implements OnInit {
       if (!id)
         return
 
-      this.clienteService.getCliente(id)
-        .subscribe(cliente => this.cliente = new Cliente(
-          cliente.id,
-          cliente.nome,
-          cliente.telefone,
-          cliente.email,
-          cliente.endereco_cliente
-        ))
+      // this.clienteService.getCliente(id)
+      //   .subscribe(cliente => this.cliente = new Cliente(
+      //     cliente.id,
+      //     cliente.nome,
+      //     cliente.telefone,
+      //     cliente.email,
+      //     cliente.endereco_cliente
+      //   ))
     })
   }
 
   onSubmit() {
     var result
 
-    if (this.cliente.id) {
-      result = this.clienteService.updateCliente(this.cliente)
-    } else {
-      result = this.clienteService.createCliente(this.cliente)
-    }
+    // if (this.cliente.id) {
+    //   result = this.clienteService.updateCliente(this.cliente)
+    // } else {
+    //   result = this.clienteService.createCliente(this.cliente)
+    // }
     result.subscribe(cliente => this.router.navigate(['/cliente/' + cliente.id]), erro => (this.errorHandle(erro)))
   }
 

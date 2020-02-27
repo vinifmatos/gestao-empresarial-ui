@@ -1,4 +1,4 @@
-import { Cliente } from '../cliente/shared/cliente'
+import { Cliente } from '../cliente/cliente'
 import { PedidoItem } from './pedido-item'
 
 export class Pedido {

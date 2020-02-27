@@ -4,6 +4,7 @@ import { ClienteComponent } from './cliente.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { ClienteService } from './cliente.service';
 
 
 
@@ -16,6 +17,9 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule
+  ],
+  providers: [
+    ClienteService,
   ]
 })
 export class ClienteModule { }

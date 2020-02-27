@@ -29,7 +29,7 @@ export class ProdutoFormComponent implements OnInit {
       if (!id)
         return
 
-      this.produtoService.getProduto(id)
+      this.produtoService.get(id)
         .subscribe(produto => this.produto = new Produto(
           produto.id,
           produto.descricao,
@@ -42,9 +42,9 @@ export class ProdutoFormComponent implements OnInit {
     var result
 
     if (this.produto.id) {
-      result = this.produtoService.updateProduto(this.produto)
+      result = this.produtoService.update(this.produto)
     } else {
-      result = this.produtoService.createProduto(this.produto)
+      result = this.produtoService.create(this.produto)
     }
     result.subscribe(
       produto => this.router.navigate(['/produto/' + produto.id]),

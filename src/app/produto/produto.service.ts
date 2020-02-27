@@ -1,78 +1,53 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Produto } from "./produto";
-import { Observable, throwError } from "rxjs";
-import { retry, catchError, map } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { ApiService } from '../shared/api.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
-  private url: string = "http://localhost:3000/produtos"
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  }
+  private path: string = "produtos"
 
   constructor(
-    private http: HttpClient
+    private apiService: ApiService
   ) { }
 
-  getProdutos(page: number, per_page: number): Observable<HttpResponse<Produto[]>> {
-    return this.http.get<Produto[]>(`${this.url}/?page=${page}&per_page=${per_page}`, { observe: 'response' }).pipe(
-      retry(1),
-      catchError(this.errorHandler)
+  private fromJSON(produto: Produto): Produto {
+
+    return new Produto(
+      produto.id,
+      produto.descricao,
+      produto.preco
     )
   }
 
-  getProduto(id): Observable<Produto> {
-    return this.http.get<Produto>(this.url + '/' + id, this.httpOptions)
-      .pipe(
-        map(res => Object.assign(new Produto, res as Produto)),
-        retry(1),
-        catchError(this.errorHandler)
-      )
+  list(page?: number, per_page?: number): Observable<Object> {
+    var paginate = {}
+    if (page && per_page)
+      paginate = { page: page, per_page: per_page }
+    return this.apiService.get(this.path, paginate).pipe(map((resp) => {
+      return {
+        total_records: parseInt(resp.headers.get('Total')),
+        produtos: resp.body.map((produto: Produto) => this.fromJSON(produto))
+      }
+    }))
   }
 
-  createProduto(produto): Observable<Produto> {
-    return this.http.post<Produto>(this.url, JSON.stringify(produto), this.httpOptions)
-      .pipe(
-        map(res => Object.assign(new Produto, res as Produto)),
-        retry(1),
-        catchError(this.errorHandler)
-      )
+  get(id: number): Observable<Produto> {
+    return this.apiService.get(`${this.path}/${id}`).pipe(map((resp) => this.fromJSON(resp.body)))
   }
 
-  updateProduto(produto): Observable<Produto> {
-    return this.http.put<Produto>(this.url + '/' + produto.id,
-      JSON.stringify(produto),
-      this.httpOptions)
-      .pipe(
-        map(res => Object.assign(new Produto, res as Produto)),
-        retry(1),
-        catchError(this.errorHandler)
-      )
+  create(produto: Produto): Observable<Produto> {
+    return this.apiService.post(`${this.path}`, produto).pipe(map((resp) => this.fromJSON(resp.body)))
   }
 
-  deleteProduto(id): Observable<Produto> {
-    return this.http.delete<Produto>(this.url + '/' + id, this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandler)
-      )
+  update(produto: Produto): Observable<Produto> {
+    return this.apiService.put(`${this.path}/${produto.id}`, produto).pipe(map((resp) => this.fromJSON(resp.body)))
   }
 
-  errorHandler(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-      console.log(errorMessage);
-      return throwError(error.error);
-    } else {
-      // Get server-side error
-      return throwError(error);
-    }
+  delete(produto: Produto): Observable<Object> {
+    return this.apiService.delete(`${this.path}/${produto.id}`).pipe(map((resp) => resp.body))
   }
 }

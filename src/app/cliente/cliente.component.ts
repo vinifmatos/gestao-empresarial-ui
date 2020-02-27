@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from "./shared/cliente.service";
-import { Cliente } from './shared/cliente';
+import { ClienteService } from "./cliente.service";
+import { Cliente } from './cliente';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 
@@ -22,12 +22,12 @@ export class ClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.clienteService.getCliente(params['id']).subscribe(cliente => this.cliente = cliente)
+      // this.clienteService.getCliente(params['id']).subscribe(cliente => this.cliente = cliente)
     })
   }
 
   deleteCliente(cliente) {
-    this.clienteService.deleteCliente(cliente.id).subscribe((null));
+    // this.clienteService.deleteCliente(cliente.id).subscribe((null));
     this.router.navigate(['/clientes'])
   }
 

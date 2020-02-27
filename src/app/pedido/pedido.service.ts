@@ -14,7 +14,7 @@ export class PedidoService {
     private apiService: ApiService
   ) { }
 
-  private fromJSON(pedido) {
+  private fromJSON(pedido): Pedido {
 
     return new Pedido(
       pedido.id,

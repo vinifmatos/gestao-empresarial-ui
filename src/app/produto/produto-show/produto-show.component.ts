@@ -24,12 +24,12 @@ export class ProdutoShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.produtoService.getProduto(params['id']).subscribe(produto => this.produto = produto)
+      this.produtoService.get(params['id']).subscribe(produto => this.produto = produto)
     })
   }
 
   deleteproduto(produto) {
-    this.produtoService.deleteProduto(produto.id).subscribe(
+    this.produtoService.delete(produto.id).subscribe(
       () => this.router.navigate(['/produtos']),
       (erro) => {
         if (erro.name == 'HttpErrorResponse') {

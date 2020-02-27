@@ -35,11 +35,11 @@ export class ProdutoIndexComponent implements OnInit {
   }
 
   setClients(page) {
-    this.produtoService.getProdutos(page, this.record_per_page).subscribe((resp) => {
-      this.produtos = resp.body
-      this.total_records = parseInt(resp.headers.get('Total'))
-      this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
-    })
+    // this.produtoService.getProdutos(page, this.record_per_page).subscribe((resp) => {
+    //   this.produtos = resp.body
+    //   this.total_records = parseInt(resp.headers.get('Total'))
+    //   this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
+    // })
   }
 
   onPerPageChange(per_page) {

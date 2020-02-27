@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from "../shared/cliente.service";
+import { ClienteService } from "../cliente.service";
 import { Router } from "@angular/router";
-import { Cliente } from '../shared/cliente';
+import { Cliente } from '../cliente';
 
 @Component({
   selector: 'app-clientes',
@@ -36,11 +36,11 @@ export class ClientesComponent implements OnInit {
   }
 
   setClients(page) {
-    this.clienteService.getClientes(page, this.record_per_page).subscribe((resp) => {
-      this.clientes = resp.body
-      this.total_records = parseInt(resp.headers.get('Total'))
-      this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
-    })
+    // this.clienteService.getClientes(page, this.record_per_page).subscribe((resp) => {
+    //   this.clientes = resp.body
+    //   this.total_records = parseInt(resp.headers.get('Total'))
+    //   this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
+    // })
   }
 
   onPerPageChange(per_page) {
