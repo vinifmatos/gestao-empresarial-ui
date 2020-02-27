@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Form } from 'src/app/shared/form';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/shared/api.service';
 import { Pedido } from '../pedido';
 import { PedidoItem } from '../pedido-item';
 import { Produto } from 'src/app/produto/produto';
 import { NgbModal, ModalDismissReasons, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { CustomDateParserFormatter } from 'src/app/shared/custom-date-parser-formatter.service';
+import { CustomDateParserFormatterService } from 'src/app/shared/custom-date-parser-formatter.service';
 import { CustomDateAdapterService } from 'src/app/shared/custom-date-adapter.service';
+import { PedidoService } from '../pedido.service';
 
 @Component({
   selector: 'app-pedido-form',
   templateUrl: './pedido-form.component.html',
   styleUrls: ['./pedido-form.component.scss'],
-  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+  providers: [{ provide: NgbDateParserFormatter, useClass: CustomDateParserFormatterService },
   { provide: NgbDateAdapter, useClass: CustomDateAdapterService }]
 })
 export class PedidoFormComponent extends Form implements OnInit {
@@ -28,10 +28,11 @@ export class PedidoFormComponent extends Form implements OnInit {
   constructor(
     private route: ActivatedRoute,
     router: Router,
-    apiService: ApiService,
+    recursoService: PedidoService,
     private modalService: NgbModal,
   ) {
-    super(router, apiService)
+    super(router)
+    this.recursoService = recursoService
     this.recurso = new Pedido()
   }
 
@@ -44,21 +45,12 @@ export class PedidoFormComponent extends Form implements OnInit {
       if (!id)
         return
 
-      this.apiService.get(`${this.recurso.className(2)}/${id}`)
+      this.recursoService.get(id)
         .subscribe(recurso => {
-          this.recurso = new Pedido(
-            recurso.id,
-            recurso.cliente,
-            recurso.situacao,
-            recurso.prazo_entrega,
-            recurso.data_entrega,
-            recurso.data,
-            recurso.pedido_itens
-          )
+          this.recurso = recurso
 
           var d = this.recurso.data.split('/')
           this.startDate = { year: parseInt(d[2]), month: parseInt(d[1]), day: parseInt(d[0]) }
-
         })
     })
   }
@@ -86,7 +78,7 @@ export class PedidoFormComponent extends Form implements OnInit {
   }
 
   getProdutos() {
-    this.apiService.get(this.novo_produto.className(2)).subscribe((produtos) => {
+    this.recursoService.get(this.novo_produto.className(2)).subscribe((produtos) => {
       this.produtos = produtos.map((produto) => Object.assign(new Produto, produto))
     })
   }
@@ -119,12 +111,12 @@ export class PedidoFormComponent extends Form implements OnInit {
 
     if (this.recurso.id) {
       this.recurso.pedido_itens = this.recurso.pedido_itens.concat(this.produtos_removidos)
-      result = this.apiService.update(this.recurso.className(2), this.recurso)
+      result = this.recursoService.update(this.recurso)
     } else {
-      result = this.apiService.create(this.recurso.className(2), this.recurso)
+      result = this.recursoService.create(this.recurso)
     }
     result.subscribe(
-      recurso => this.router.navigate([`${this.recurso.className()}/${recurso.id}`]),
+      recurso => this.router.navigate([this.recurso.className(), recurso.id]),
       erro => (this.errorHandle(erro)))
   }
 }

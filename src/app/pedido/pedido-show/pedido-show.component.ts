@@ -3,7 +3,7 @@ import { Pedido } from '../pedido';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NotificacaoService } from 'src/app/notificacao/notificacao.service';
-import { ApiService } from 'src/app/shared/api.service';
+import { PedidoService } from '../pedido.service';
 
 @Component({
   selector: 'app-pedido-show',
@@ -19,27 +19,17 @@ export class PedidoShowComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     public notificacaoService: NotificacaoService,
-    private apiService: ApiService
+    private pedidoService: PedidoService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.apiService.get(`${this.pedido.className(2)}/${params['id']}`).subscribe((pedido) => {
-        this.pedido = new Pedido(
-          pedido.id,
-          pedido.cliente,
-          pedido.situacao,
-          pedido.prazo_entrega,
-          pedido.data_entrega,
-          pedido.data,
-          pedido.pedido_itens
-        )
-      })
+      this.pedidoService.get(params['id']).subscribe((pedido) => this.pedido = pedido)
     })
   }
 
   deletepedido(pedido: Pedido) {
-    this.apiService.delete(`${pedido.className(2)}`, pedido).subscribe(
+    this.pedidoService.delete(pedido).subscribe(
       () => this.router.navigate(['/pedidos']),
       (erro) => {
         if (erro.name == 'HttpErrorResponse') {

@@ -13,10 +13,11 @@ export class FornecedorFormComponent extends Form implements OnInit {
   constructor(
     private route: ActivatedRoute,
     router: Router,
-    apiService: ApiService,
+    recursoService: ApiService,
   ) {
-    super(router, apiService)
+    super(router)
     this.recurso = new Fornecedor()
+    this.recursoService = recursoService
   }
 
   ngOnInit() {
@@ -28,7 +29,7 @@ export class FornecedorFormComponent extends Form implements OnInit {
       if (!id)
         return
 
-      this.apiService.get(`${this.recurso.className(2)}/${id}`)
+      this.recursoService.get(`${this.recurso.className(2)}/${id}`)
         .subscribe(recurso => this.recurso = Object.assign(new Fornecedor(), recurso as Fornecedor))
     })
   }

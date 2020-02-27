@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Fornecedor } from "../fornecedor";
 import { Router } from "@angular/router";
-import { ApiService } from "../../shared/api.service";
+import { FornecedorService } from '../fornecedor.service';
 
 @Component({
   selector: 'app-fornecedor-index',
@@ -18,12 +18,12 @@ export class FornecedorIndexComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService,
+    private fornecerdorService: FornecedorService,
   ) {
   }
 
   ngOnInit() {
-    this.setClients(this.current_page)
+    this.setFornecedores(this.current_page)
   }
 
   rowClick(id) {
@@ -32,11 +32,11 @@ export class FornecedorIndexComponent implements OnInit {
 
   onPageChange(page) {
     this.current_page = page
-    this.setClients(page)
+    this.setFornecedores(page)
   }
 
-  setClients(page) {
-    this.apiService.list(page, this.record_per_page, '/fornecedores').subscribe((resp) => {
+  setFornecedores(page) {
+    this.fornecerdorService.list(page, this.record_per_page).subscribe((resp) => {
       this.fornecedores = resp.body
       this.total_records = parseInt(resp.headers.get('Total'))
       this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))

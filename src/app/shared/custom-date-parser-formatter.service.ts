@@ -4,7 +4,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 @Injectable({
   providedIn: 'root'
 })
-export class CustomDateParserFormatter extends NgbDateParserFormatter {
+export class CustomDateParserFormatterService extends NgbDateParserFormatter {
 
   readonly DELIMITER = '/';
 

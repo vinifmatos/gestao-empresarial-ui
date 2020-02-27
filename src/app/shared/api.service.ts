@@ -1,58 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { retry, catchError, map } from "rxjs/operators";
+import { retry, catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   private base_url: string = "http://localhost:3000/"
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  }
+  private headers: HttpHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
 
   constructor(
     private http: HttpClient
   ) { }
 
-  list(page: number, per_page: number, path: string): Observable<HttpResponse<any[]>> {
-    return this.http.get<any[]>(`${this.base_url}${path}/?page=${page}&per_page=${per_page}`, { observe: 'response' }).pipe(
-      retry(1),
-      catchError(this.errorHandler)
-    )
-  }
-
-  get(path: string): Observable<any> {
-    return this.http.get<any>(`${this.base_url}${path}`, this.httpOptions)
+  get(path: string, params: Object = {}): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.base_url}${path}`, { observe: 'response', headers: this.headers, params: new HttpParams(params) })
       .pipe(
         retry(1),
         catchError(this.errorHandler)
       )
   }
 
-  create(path: string, recurso: any): Observable<any> {
-    return this.http.post<any>(`${this.base_url}${path}`, JSON.stringify(recurso), this.httpOptions)
+  post(path: string, body: Object = {}): Observable<HttpResponse<any>> {
+    return this.http.post<any>(path, JSON.stringify(body), { observe: 'response', headers: this.headers })
       .pipe(
         retry(1),
         catchError(this.errorHandler)
       )
   }
 
-  update(path: string, recurso: any): Observable<any> {
-    return this.http.put<any>(`${this.base_url}${path}/${recurso.id}`,
-      JSON.stringify(recurso),
-      this.httpOptions)
+  put(path: string, body: Object = {}): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.base_url}${path}`, JSON.stringify(body), { observe: 'response', headers: this.headers })
       .pipe(
         retry(1),
         catchError(this.errorHandler)
       )
   }
 
-  delete(path: string, recurso: any): Observable<any> {
-    return this.http.delete<any>(`${this.base_url}${path}/${recurso.id}`, this.httpOptions)
+  delete(path: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.base_url}${path}`, { observe: 'response', headers: this.headers })
       .pipe(
         retry(1),
         catchError(this.errorHandler)

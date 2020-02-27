@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../pedido';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/shared/api.service';
+import { PedidoService } from '../pedido.service';
 
 @Component({
   selector: 'app-pedido-index',
@@ -18,7 +18,7 @@ export class PedidoIndexComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService,
+    private pedidoService: PedidoService,
   ) {
   }
 
@@ -27,7 +27,7 @@ export class PedidoIndexComponent implements OnInit {
   }
 
   rowClick(id) {
-    this.router.navigate([`/pedido/${id}`])
+    this.router.navigate(['/pedido/', id])
   }
 
   onPageChange(page) {
@@ -36,17 +36,9 @@ export class PedidoIndexComponent implements OnInit {
   }
 
   setClients(page) {
-    this.apiService.list(page, this.record_per_page, '/pedidos').subscribe((resp) => {
-      this.pedidos = resp.body.map((pedido: Pedido) => new Pedido(
-        pedido.id,
-        pedido.cliente,
-        pedido.situacao,
-        pedido.prazo_entrega,
-        pedido.data_entrega,
-        pedido.data,
-        pedido.pedido_itens
-      ))
-      this.total_records = parseInt(resp.headers.get('Total'))
+    this.pedidoService.list(page, this.record_per_page).subscribe((resp: any) => {
+      this.pedidos = resp.pedidos
+      this.total_records = resp.total_records
       this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
     })
   }

@@ -15,7 +15,6 @@ import { ClientesComponent } from './cliente/clientes/clientes.component';
 import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
 import { ClienteService } from "./cliente/shared/cliente.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { RoundupPipe } from './roundup.pipe';
 import { ProdutoIndexComponent } from './produto/produto-index/produto-index.component';
 import { ProdutoFormComponent } from './produto/produto-form/produto-form.component';
 import { ProdutoShowComponent } from './produto/produto-show/produto-show.component';
@@ -28,6 +27,7 @@ import { PedidoIndexComponent } from './pedido/pedido-index/pedido-index.compone
 import { PedidoShowComponent } from './pedido/pedido-show/pedido-show.component';
 import { PedidoFormComponent } from './pedido/pedido-form/pedido-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NavbarComponent,
     ClientesComponent,
     ClienteFormComponent,
-    RoundupPipe,
     ProdutoIndexComponent,
     ProdutoFormComponent,
     ProdutoShowComponent,
@@ -55,7 +54,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule,
   ],
   providers: [ClienteService, Form, { provide: LOCALE_ID, useValue: "pt" }],
   bootstrap: [AppComponent]

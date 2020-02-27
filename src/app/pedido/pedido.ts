@@ -37,7 +37,6 @@ export class Pedido {
     pedido.pedido_itens_attributes = this.pedido_itens
     if (!this.data_entrega)
       pedido.data_entrega = this.data_entrega
-    console.log(pedido);
 
     return { pedido: pedido }
   }
