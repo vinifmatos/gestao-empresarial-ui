@@ -3,7 +3,7 @@ import { Fornecedor } from "../fornecedor";
 import { FornecedorService } from "../fornecedor.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { NotificacaoService } from "../../notificacao/notificacao.service";
+import { NotificacaoService } from "../../shared/notificacao/notificacao.service";
 
 @Component({
   selector: 'app-fornecedor-show',

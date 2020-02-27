@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ProdutoService } from "../produto.service";
 import { Produto } from "../produto";
-import { NotificacaoService } from "../../notificacao/notificacao.service";
+import { NotificacaoService } from "../../shared/notificacao/notificacao.service";
 
 @Component({
   selector: 'app-produto-show',

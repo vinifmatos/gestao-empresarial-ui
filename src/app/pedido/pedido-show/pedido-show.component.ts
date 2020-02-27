@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../pedido';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NotificacaoService } from 'src/app/notificacao/notificacao.service';
+import { NotificacaoService } from "../../shared/notificacao/notificacao.service";
 import { PedidoService } from '../pedido.service';
 
 @Component({
