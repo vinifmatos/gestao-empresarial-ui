@@ -25,7 +25,7 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}): Observable<HttpResponse<any>> {
-    return this.http.post<any>(path, JSON.stringify(body), { observe: 'response', headers: this.headers })
+    return this.http.post<any>(`${this.base_url}${path}`, JSON.stringify(body), { observe: 'response', headers: this.headers })
       .pipe(
         retry(1),
         catchError(this.errorHandler)
