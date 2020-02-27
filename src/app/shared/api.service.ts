@@ -16,8 +16,8 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  get(path: string, params: Object = {}): Observable<HttpResponse<any>> {
-    return this.http.get<any>(`${this.base_url}${path}`, { observe: 'response', headers: this.headers, params: new HttpParams(params) })
+  get(path: string, params: any = {}): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.base_url}${path}`, { observe: 'response', headers: this.headers, params: params })
       .pipe(
         retry(1),
         catchError(this.errorHandler)

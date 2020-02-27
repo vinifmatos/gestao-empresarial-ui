@@ -26,7 +26,8 @@ export class ProdutoService {
   list(page?: number, per_page?: number): Observable<Object> {
     var paginate = {}
     if (page && per_page)
-      paginate = { page: page, per_page: per_page }
+      paginate = { 'page': page.toString(), 'per_page': per_page.toString() }
+
     return this.apiService.get(this.path, paginate).pipe(map((resp) => {
       return {
         total_records: parseInt(resp.headers.get('Total')),

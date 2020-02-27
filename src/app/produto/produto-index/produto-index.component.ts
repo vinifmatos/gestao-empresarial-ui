@@ -22,24 +22,24 @@ export class ProdutoIndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setClients(this.current_page)
+    this.setProdutos(this.current_page)
   }
 
   rowClick(id) {
-    this.router.navigate(['/produto/' + id])
+    this.router.navigate(['/produto/', id])
   }
 
   onPageChange(page) {
     this.current_page = page
-    this.setClients(page)
+    this.setProdutos(page)
   }
 
-  setClients(page) {
-    // this.produtoService.getProdutos(page, this.record_per_page).subscribe((resp) => {
-    //   this.produtos = resp.body
-    //   this.total_records = parseInt(resp.headers.get('Total'))
-    //   this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
-    // })
+  setProdutos(page) {
+    this.produtoService.list(page, this.record_per_page).subscribe((resp: any) => {
+      this.produtos = resp.produtos
+      this.total_records = resp.total_records
+      this.total_pages = parseInt((this.total_records / this.record_per_page).toFixed(0))
+    })
   }
 
   onPerPageChange(per_page) {
