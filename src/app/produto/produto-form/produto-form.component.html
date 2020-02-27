@@ -9,7 +9,7 @@
         <div class="form-group col-lg-6">
           <label for="produto_descricao">Descrição</label>
           <input type="text" id="produto_descricao" class="form-control" name="produto_descricao"
-            [(ngModel)]="produto.descricao">
+            [(ngModel)]="recurso.descricao">
           <div class="invalid-feedback"></div>
         </div>
       </div>
@@ -17,7 +17,7 @@
       <div class="form-row">
         <div class="form-group col-md-3 col-lg-2">
           <label for="produto_preco">Preço</label>
-          <input type="text" id="produto_preco" class="form-control" name="produto_preco" [(ngModel)]="produto.preco">
+          <input type="text" id="produto_preco" class="form-control" name="produto_preco" [(ngModel)]="recurso.preco">
           <div class="invalid-feedback"></div>
         </div>
       </div>
@@ -25,7 +25,7 @@
 
       <div class="acoes mt-3">
         <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-        <a [routerLink]="[backRoute]" class="btn btn-secondary">Voltar</a>
+        <a [routerLink]="['../']" class="btn btn-secondary">Voltar</a>
       </div>
     </form>
   </div>

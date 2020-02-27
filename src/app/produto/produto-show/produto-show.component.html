@@ -10,7 +10,7 @@
 
 <div class="acoes">
   <a routerLink="/produtos" class="btn btn-secondary mr-2">Voltar</a>
-  <button [routerLink]="['/produto/edit', produto.id]" class="btn btn-primary mr-2">Editar Produto</button>
+  <button [routerLink]="['edit']" class="btn btn-primary mr-2">Editar Produto</button>
   <button (click)="open(content)" class="btn btn-danger">Excluir Produto</button>
 </div>
 

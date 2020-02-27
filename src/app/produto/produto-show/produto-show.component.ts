@@ -29,7 +29,7 @@ export class ProdutoShowComponent implements OnInit {
   }
 
   deleteproduto(produto) {
-    this.produtoService.delete(produto.id).subscribe(
+    this.produtoService.delete(produto).subscribe(
       () => this.router.navigate(['/produtos']),
       (erro) => {
         if (erro.name == 'HttpErrorResponse') {
