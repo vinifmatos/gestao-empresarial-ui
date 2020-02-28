@@ -18,7 +18,7 @@
     <tr *ngFor="let pedido of pedidos" (click)="rowClick(pedido.id)">
       <td>{{ pedido.id }}</td>
       <td>{{ pedido.data }}</td>
-      <td>{{ pedido.situacao }}</td>
+      <td>{{ pedido.situacaoFormatada() }}</td>
       <td>{{ pedido.cliente.nome }}</td>
     </tr>
   </tbody>
