@@ -8,32 +8,47 @@
       <div class="form-row">
         <div class="form-group col-md-3 col-lg-2">
           <label for="pedido_data">Data</label>
+
           <div class="input-group">
             <input id="pedido_data" class="form-control" placeholder="dd/mm/yyyy" name="pedido_data"
               [(ngModel)]="recurso.data" [startDate]="startDate" ngbDatepicker #d="ngbDatepicker">
+
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                 <fa-icon [icon]="faCalendarAlt"></fa-icon>
               </button>
             </div>
+
+            <div class="invalid-feedback"></div>
           </div>
-          <div class="invalid-feedback"></div>
         </div>
 
         <div class="form-group col-md col-lg-6">
           <label for="pedido_cliente">Cliente</label>
-          <input type="text" id="pedido_cliente" class="form-control" name="pedido_cliente"
-            [(ngModel)]="recurso.cliente.nome">
+
+          <div class="input-group">
+            <input type="text" id="pedido_cliente" class="form-control" name="pedido_cliente"
+              [(ngModel)]="recurso.cliente.nome" readonly>
+
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="openSelecaoCliente()">
+                <fa-icon [icon]="faSearch"></fa-icon>
+              </button>
+            </div>
+
+            <div class="invalid-feedback"></div>
+          </div>
           <input type="hidden" id="pedido_cliente_id" name="pedido_cliente_id" [(ngModel)]="recurso.cliente.id">
-          <div class="invalid-feedback"></div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-3 col-lg-2">
           <label for="pedido_prazo_entrega">Prazo de entrega</label>
+
           <input type="number" min="0" id="pedido_prazo_entrega" class="form-control" name="pedido_prazo_entrega"
             [(ngModel)]="recurso.prazo_entrega">
+
           <div class="invalid-feedback"></div>
         </div>
       </div>

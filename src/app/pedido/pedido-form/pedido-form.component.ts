@@ -5,10 +5,12 @@ import { Pedido } from '../pedido';
 import { PedidoItem } from '../pedido-item';
 import { Produto } from 'src/app/produto/produto';
 import { NgbModal, ModalDismissReasons, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { faTrash, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CustomDateParserFormatterService } from 'src/app/shared/custom-date-parser-formatter.service';
 import { CustomDateAdapterService } from 'src/app/shared/custom-date-adapter.service';
 import { PedidoService } from '../pedido.service';
+import { ModalSelecaoClienteComponent } from '../modal-selecao-cliente/modal-selecao-cliente.component';
+import { Cliente } from 'src/app/cliente/cliente';
 
 @Component({
   selector: 'app-pedido-form',
@@ -24,6 +26,7 @@ export class PedidoFormComponent extends Form implements OnInit {
   faTrash = faTrash;
   faCalendarAlt = faCalendarAlt;
   startDate = {}
+  faSearch = faSearch
 
   constructor(
     private route: ActivatedRoute,
@@ -118,5 +121,17 @@ export class PedidoFormComponent extends Form implements OnInit {
     result.subscribe(
       recurso => this.router.navigate([this.recurso.className(), recurso.id]),
       erro => (this.errorHandle(erro)))
+  }
+
+  openSelecaoCliente() {
+    const modalRef = this.modalService.open(ModalSelecaoClienteComponent, { scrollable: true });
+    var selecionado: Cliente = null;
+    modalRef.componentInstance.cliente_selecionado = this.recurso.cliente;
+    modalRef.componentInstance.selecionado.subscribe((cliente) => selecionado = cliente)
+    modalRef.result.then((result) => {
+      if (result) {
+        this.recurso.cliente = selecionado
+      }
+    })
   }
 }
