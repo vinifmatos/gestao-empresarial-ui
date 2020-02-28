@@ -9,11 +9,18 @@ export class Pedido {
   data_entrega: string
   data: string
   pedido_itens: PedidoItem[]
+  readonly SITUACOES = {
+    em_aberto: 'Em aberto',
+    cancelado: 'Cancelado',
+    em_andamento: 'Em andamento',
+    pronto_entrega: 'Pronto para entrega',
+    finalizado: 'Finalizado'
+  }
 
   constructor(
     id: number = null,
     cliente: Cliente = null,
-    situacao: string = null,
+    situacao: string = 'em_aberto',
     prazo_entrega: number = 0,
     data_entrega: string = null,
     data: string = null,
@@ -60,5 +67,9 @@ export class Pedido {
       return
     var d = data.split('-')
     return `${d[2]}/${d[1]}/${d[0]}`
+  }
+
+  situacaoFormatada() {
+    return this.SITUACOES[this.situacao]
   }
 }
