@@ -35,10 +35,9 @@ export class Form {
 
     if (erro.name == 'HttpErrorResponse') {
       if (erro.status == 422) {
-        console.log(erro);
+        console.error("Campos invalidos", erro.error);
 
-        var els
-        els = document.getElementsByClassName('invalid-feedback')
+        var els = document.getElementsByClassName('invalid-feedback')
         Array.prototype.forEach.call(els, (e) => {
           e.innerHTML = ''
         })
@@ -48,9 +47,11 @@ export class Form {
           e.classList.add('is-valid')
         })
         for (var prop in erro.error) {
-          document.getElementById(`${this.recurso.className().toLowerCase()}_${prop.replace('.', '_')}`).classList.add('is-invalid')
-          var el = document.getElementById(`${this.recurso.className().toLowerCase()}_${prop.replace('.', '_')}`).parentElement.getElementsByClassName('invalid-feedback')[0]
-          el.append(`${erro.error[prop]}`)
+          var campo: HTMLElement = document.getElementById(`${this.recurso.className().toLowerCase()}_${prop.replace('.', '_')}`)
+          if (campo) {
+            campo.classList.add('is-invalid')
+            campo.parentElement.getElementsByClassName('invalid-feedback')[0].append(`${erro.error[prop]}`)
+          }
         }
         return
       }
