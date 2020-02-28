@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Selecionar Produto</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="px-3 my-3">
+  <input type="text" class="form-control" placeholder="Digite a descrição do Produto" [(ngModel)]="input_text" #busca>
+</div>
+
+<div class="modal-body">
+  <table class="table table-hover table-bordered table-responsive-md">
+    <tbody>
+      <tr (click)="onRowClick($event.target.parentElement, produto)" *ngFor="let produto of produtos">
+        <td>{{ produto.id }} - {{ produto.descricao }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="px-3 my-3">
+  <div class="row no-gutters">
+    <ngb-pagination class="mx-auto hidden-xs" [collectionSize]="total_records" (pageChange)="onPageChange($event)"
+      [(page)]="current_page" [maxSize]="7" [rotate]="true" [pageSize]="per_page" [ellipses]="false" size="sm"
+      [boundaryLinks]="true">
+    </ngb-pagination>
+  </div>
+
+  <div class="row no-gutters">
+    <select class="custom-select" (change)="onPerPageChange($event.target.value)" style="width: auto"
+      [(ngModel)]="per_page">
+      <option [value]="25" selected="true">25 itens por página</option>
+      <option [value]="50">50 itens por página</option>
+      <option [value]="100">100 itens por página</option>
+    </select>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="activeModal.close(true)">Confimar</button>
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Cancelar</button>
+</div>

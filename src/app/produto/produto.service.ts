@@ -23,6 +23,23 @@ export class ProdutoService {
     )
   }
 
+  listar_por_descricao(descricao: string, page?: number, per_page?: number): Observable<Object> {
+    var params: { [k: string]: any } = {}
+    params.descricao = descricao
+
+    if (page && per_page) {
+      params.page = page
+      params.per_page = per_page
+    }
+
+    return this.apiService.get('produtos_por_descricao', params).pipe(map((resp) => {
+      return {
+        total_records: parseInt(resp.headers.get('Total')),
+        produtos: resp.body.map((produto: Produto) => this.fromJSON(produto))
+      }
+    }))
+  }
+
   list(page?: number, per_page?: number): Observable<Object> {
     var paginate = {}
     if (page && per_page)

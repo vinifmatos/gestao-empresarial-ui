@@ -1,10 +1,11 @@
+import { SelecaoProdutoComponent } from './../selecao-produto/selecao-produto.component';
 import { Component, OnInit } from '@angular/core';
 import { Form } from 'src/app/shared/form';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pedido } from '../pedido';
 import { PedidoItem } from '../pedido-item';
 import { Produto } from 'src/app/produto/produto';
-import { NgbModal, ModalDismissReasons, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash, faCalendarAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CustomDateParserFormatterService } from 'src/app/shared/custom-date-parser-formatter.service';
 import { CustomDateAdapterService } from 'src/app/shared/custom-date-adapter.service';
@@ -42,19 +43,12 @@ export class PedidoFormComponent extends Form implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       var id = params['id']
-
       this.titulo = id ? `Editar ${this.recurso.humanName()}` : `Novo ${this.recurso.humanName()}`
 
       if (!id)
         return
 
-      this.recursoService.get(id)
-        .subscribe(recurso => {
-          this.recurso = recurso
-
-          var d = this.recurso.data.split('/')
-          this.startDate = { year: parseInt(d[2]), month: parseInt(d[1]), day: parseInt(d[0]) }
-        })
+      this.recursoService.get(id).subscribe(recurso => this.recurso = recurso)
     })
   }
 
@@ -68,40 +62,7 @@ export class PedidoFormComponent extends Form implements OnInit {
   }
 
   addPedidoItem(produto) {
-    this.recurso.pedido_itens.push(new PedidoItem(null, produto, 1, produto.preco, 1 * produto.preco))
-  }
-
-  open(content) {
-    this.getProdutos()
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      if (result == 'sim') {
-        this.addPedidoItem(this.novo_produto)
-      }
-    });
-  }
-
-  getProdutos() {
-    this.recursoService.get(this.novo_produto.className(2)).subscribe((produtos) => {
-      this.produtos = produtos.map((produto) => Object.assign(new Produto, produto))
-    })
-  }
-
-  onProdutoRowClick(linha, index) {
-    Array.prototype.forEach.call(document.getElementsByClassName('table-primary'), (e) => {
-      e.classList.remove('table-primary')
-    })
-    linha.classList.toggle('table-primary')
-    this.novo_produto = this.produtos[index]
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.recurso.pedido_itens.push(new PedidoItem(null, produto, 1, produto.preco, produto.preco))
   }
 
   onQtdChange(index) {
@@ -131,6 +92,18 @@ export class PedidoFormComponent extends Form implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         this.recurso.cliente = selecionado
+      }
+    })
+  }
+
+  openSelecaoProduto() {
+    const modalRef = this.modalService.open(SelecaoProdutoComponent, { scrollable: true });
+    var selecionado: Produto = null;
+    modalRef.componentInstance.cliente_selecionado = this.recurso.cliente;
+    modalRef.componentInstance.selecionado.subscribe((cliente) => selecionado = cliente)
+    modalRef.result.then((result) => {
+      if (result) {
+        this.addPedidoItem(selecionado)
       }
     })
   }
