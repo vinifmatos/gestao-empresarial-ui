@@ -37,6 +37,21 @@ export class ClienteService {
     }))
   }
 
+  list_por_nome(nome: string, page?: number, per_page?: number): Observable<Object> {
+    var params: { [k: string]: any } = {}
+    params.nome = nome
+    if (page && per_page) {
+      params.page = page
+      params.per_page = per_page
+    }
+    return this.apiService.get('listar_clientes_por_nome', params).pipe(map((resp) => {
+      return {
+        total_records: parseInt(resp.headers.get('Total')),
+        clientes: resp.body.map((cliente: Cliente) => this.fromJSON(cliente))
+      }
+    }))
+  }
+
   get(id: number): Observable<Cliente> {
     return this.apiService.get(`${this.path}/${id}`).pipe(map((resp) => this.fromJSON(resp.body)))
   }
